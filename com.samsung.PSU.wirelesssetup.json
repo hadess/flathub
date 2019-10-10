@@ -57,7 +57,7 @@
                     "type" : "script",
                     "dest-filename" : "wirelesssetup",
                     "commands": [
-                       "exec /app/extra/bin/wirelesssetup \"$@\""
+                       "exec /app/extra/bin/wirelesssetup /dev/usb/lp0"
                     ]
                 },
                 {

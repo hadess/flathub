@@ -1,0 +1,103 @@
+{
+    "app-id" : "com.samsung.PSU.wirelesssetup",
+    "runtime" : "org.freedesktop.Platform",
+    "runtime-version" : "19.08",
+    "sdk" : "org.freedesktop.Sdk",
+    "command" : "wirelesssetup",
+    "tags": ["proprietary"],
+    "finish-args" : [
+        /* X11 + XShm access */
+        "--share=ipc", "--socket=x11",
+        /* USB device access */
+        "--device=all",
+        "--env=LD_LIBRARY_PATH=/app/extra/lib"
+    ],
+    "modules" : [
+        {
+            "name" : "libusb",
+            "sources" : [
+                {
+                    "type": "archive",
+                    "url": "https://github.com//libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.tar.bz2",
+                    "sha256": "db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d"
+                }
+            ]
+        },
+        {
+            "name" : "libusb-compat",
+            "sources" : [
+                {
+                    "type": "archive",
+                    "url": "https://downloads.sourceforge.net/project/libusb/libusb-compat-0.1/libusb-compat-0.1.5/libusb-compat-0.1.5.tar.bz2",
+                    "sha256": "404ef4b6b324be79ac1bfb3d839eac860fbc929e6acb1ef88793a6ea328bc55a"
+                }
+            ]
+        },
+        {
+            "name": "libXmu",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://xorg.freedesktop.org/releases/individual/lib/libXmu-1.1.2.tar.bz2",
+                    "sha256": "756edc7c383254eef8b4e1b733c3bf1dc061b523c9f9833ac7058378b8349d0b"
+                }
+            ]
+        },
+        {
+            "name" : "wirelesssetup",
+            "buildsystem" : "simple",
+            "build-commands" : [
+                "install -D -t /app/bin/ apply_extra",
+                "install wirelesssetup /app/bin",
+                "install -Dm644 com.samsung.PSU.wirelesssetup.png /app/share/icons/com.samsung.PSU.wirelesssetup.png",
+                "install -Dm644 -t /app/share/applications/ com.samsung.PSU.wirelesssetup.desktop"
+                "install -Dm644 -t /app/share/metainfo/ com.samsung.PSU.wirelesssetup.appdata.xml"
+            ],
+            "sources" : [
+                {
+                    "type" : "script",
+                    "dest-filename" : "wirelesssetup",
+                    "commands": [
+                       "exec /app/extra/bin/wirelesssetup \"$@\""
+                    ]
+                },
+                {
+                   "type" : "script",
+                   "dest-filename": "apply_extra",
+                   "commands": [
+                       "mkdir -p /app/extra/bin",
+                       "tar xzf PSU_1.01.tar.gz",
+                       "rm -f PSU_1.01.tar.gz",
+                       "mv ./cdroot/Linux/psu/share/lib64 /app/extra/lib/",
+                       "tar xzf ./cdroot/Linux/psu/share/libstdc++-5-x86_64.tar.gz",
+                       "mv usr/lib64/* /app/extra/lib/",
+                       "ldconfig /app/extra/lib/",
+                       "mv cdroot/Linux/wirelesssetup/bin64/wirelesssetup /app/extra/bin",
+                       "mv cdroot/Linux/psu/bin64/* /app/extra/bin",
+                       "rm -rf cdroot/ usr/"
+                   ]
+                },
+                {
+                    "type" : "extra-data",
+                    "filename" : "PSU_1.01.tar.gz",
+                    "only-arches": ["x86_64"],
+                    "url" : "http://downloadcenter.samsung.com/content/DR/201110/20111019151150392/PSU_1.01.tar.gz",
+                    "sha256" : "3501ba9633cca9e07e968732aa0d516fc2127493bdc926a1ad1b374caa14a354",
+                    "size" : 11555145
+                },
+                {
+                    "type" : "file",
+                    "path" : "com.samsung.PSU.wirelesssetup.png"
+                },
+                {
+                    "type" : "file",
+                    "path" : "com.samsung.PSU.wirelesssetup.desktop"
+                },
+                {
+                    "type" : "file",
+                    "path" : "com.samsung.PSU.wirelesssetup.appdata.xml"
+                }
+            ]
+        }
+    ]
+}

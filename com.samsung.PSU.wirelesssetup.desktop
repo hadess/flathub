@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Samsung Printer Wireless Setup Utility
+Comment=Configure Wireless networking for Samsung printers
+Type=Application
+Categories=System;Printing;HardwareSettings;
+Keywords=printer;samsung;wi-fi;wifi;wireless;print;settings;
+Exec=wirelesssetup
+Terminal=false
+Icon=com.samsung.PSU.wirelesssetup

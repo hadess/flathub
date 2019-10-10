@@ -51,7 +51,6 @@
                 "install wirelesssetup /app/bin",
                 "install -Dm644 com.samsung.PSU.wirelesssetup.png /app/share/icons/com.samsung.PSU.wirelesssetup.png",
                 "install -Dm644 -t /app/share/applications/ com.samsung.PSU.wirelesssetup.desktop"
-                "install -Dm644 -t /app/share/metainfo/ com.samsung.PSU.wirelesssetup.appdata.xml"
             ],
             "sources" : [
                 {
@@ -92,10 +91,6 @@
                 {
                     "type" : "file",
                     "path" : "com.samsung.PSU.wirelesssetup.desktop"
-                },
-                {
-                    "type" : "file",
-                    "path" : "com.samsung.PSU.wirelesssetup.appdata.xml"
                 }
             ]
         }

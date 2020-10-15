@@ -1,0 +1,72 @@
+{
+    "app-id" : "io.kaitai.StructVisualizer",
+    "runtime" : "org.freedesktop.Platform",
+    "runtime-version" : "20.08",
+    "sdk" : "org.freedesktop.Sdk",
+    "command" : "ksv",
+    "finish-args" : [
+        /* X11 + XShm access */
+        "--share=ipc", "--socket=x11",
+        /* GPU acceleration */
+        "--device=dri",
+        /* Play sounds */
+        "--socket=pulseaudio",
+        /* Get access to the files */
+        "--filesystem=host:ro",
+        "--talk-name=org.gtk.vfs.*",
+        "--filesystem=xdg-run/gvfs:ro"
+    ],
+    "modules" : [
+          {
+              "name": "ruby",
+              "config-opts": [
+                  "--disable-install-doc"
+              ],
+              "sources": [
+                  {
+                      "type": "archive",
+                      "url": "https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.2.tar.gz",
+                      "sha256": "6e5706d0d4ee4e1e2f883db9d768586b4d06567debea353c796ec45e8321c3d4"
+                  }
+             ]
+        },
+        {
+            "name": "kaitai-struct",
+            "buildsystem": "simple",
+            "build-commands": [
+                "gem install --local kaitai-struct-0.8.gem"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://rubygems.org/downloads/kaitai-struct-0.8.gem",
+                    "sha256": "d675cffef1301c1f1c4b1a28b4ad1ab7e16ded8d095eb1e1314d6319d06030c8"
+                }
+            ]
+        },
+        {
+            "name": "kaitai-struct-visualizer",
+            "buildsystem": "simple",
+            "build-commands": [
+                "gem install --local kaitai-struct-visualizer-0.7.gem",
+                "install -Dm644 kaitai.png /app/share/icons/hicolor/256x256/apps/io.kaitai.StructVisualizer.png",
+                "install -Dm644 -t /app/share/applications/ io.kaitai.StructVisualizer.desktop"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://rubygems.org/downloads/kaitai-struct-visualizer-0.7.gem",
+                    "sha256": "0e8c6c3619733fd7ca8a47b0f23b1015b862d93fd11a69953961d99d5d2fd055"
+                },
+                {
+                    "type": "file",
+                    "path": "kaitai.png"
+                },
+                {
+                    "type": "file",
+                    "path": "io.kaitai.StructVisualizer.desktop"
+                }
+            ]
+        }
+    ]
+}

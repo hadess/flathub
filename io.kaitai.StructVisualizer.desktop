@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Kaitai Struct Visualizer
+Name[en_GB]=Kaitai Struct Visualiser
+Comment=Visualizer tool for .ksy "Kaitai Struct" files
+Type=Application
+MimeType=text/x-kaitai-struct;
+Categories=Development;ComputerScience;DataVisualization;
+Keywords=kaitai;struct;visualizer;visualiser;parser;format;
+Exec=ksv %f
+Terminal=false
+Icon=io.kaitai.StructVisualizer

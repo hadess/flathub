@@ -1,0 +1,90 @@
+{
+    "app-id": "com.github.jonian.kickoff-player",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "3.38",
+    "sdk": "org.gnome.Sdk",
+    "command": "kickoff-player",
+    "tags": [
+        "proprietary"
+    ],
+    "finish-args": [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--share=network",
+        "--device=dri"
+    ],
+    "modules": [
+        "python-deps.json",
+        "shared-modules/python2.7/python-2.7.json",
+        {
+            "name": "apsw",
+            "buildsystem": "simple",
+            "build-commands": [
+                "touch .separate_namespace",
+                "python setup.py install --prefix=/app"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://files.pythonhosted.org/packages/b5/a1/3de5a2d35fc34939672f4e1bd7d68cca359a31b76926f00d95f434c63aaa/apsw-3.9.2-r1.tar.gz",
+                    "sha256": "dab96fd164dde9e59f7f27228291498217fa0e74048e2c08c7059d7e39589270"
+                }
+            ]
+        },
+        {
+            "name": "acestream",
+            "buildsystem": "simple",
+            "build-commands": [
+                "install -Dm755 apply_extra /app/bin/apply_extra",
+                "install -Dm755 acestream.sh /app/bin/acestreamengine"
+            ],
+            "sources": [
+                {
+                    "type": "script",
+                    "dest-filename": "apply_extra",
+                    "commands": [
+                        "tar -zxf acestream.tar.gz",
+                        "rm -f acestream.tar.gz"
+                    ]
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "acestream.sh",
+                    "commands": [
+                        "exec /app/extra/start-engine \"$@\""
+                    ]
+                },
+                {
+                    "type": "extra-data",
+                    "filename": "acestream.tar.gz",
+                    "only-arches": [
+                        "x86_64"
+                    ],
+                    "url": "http://acestream.org/downloads/linux/acestream_3.1.49_ubuntu_18.04_x86_64.tar.gz",
+                    "sha256": "d2ed7bdc38f6a47c05da730f7f6f600d48385a7455d922a2688f7112202ee19e",
+                    "size": 17001150
+                }
+            ]
+        },
+        {
+            "name": "kickoff-player",
+            "buildsystem": "simple",
+            "build-commands": [
+                "mkdir -p /app/lib/kickoff-player",
+                "cp -ar ./* /app/lib/kickoff-player/",
+                "rm -rf /app/lib/kickoff-player/icons /app/lib/kickoff-player/kickoff-player.desktop",
+                "mkdir -p /app/share/icons/hicolor",
+                "cp -ar icons/hicolor/* /app/share/icons/hicolor",
+                "install -m0644 -D kickoff-player.desktop /app/share/applications/kickoff-player.desktop",
+                "ln -sf /app/lib/kickoff-player/kickoff_player.py /app/bin/kickoff-player"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/jonian/kickoff-player.git",
+                    "commit": "4577d60ca869234ed94611d7395585ca3ec5f918"
+                }
+            ]
+        }
+    ]
+}

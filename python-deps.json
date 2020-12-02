@@ -1,0 +1,64 @@
+{
+    "name": "python3-deps",
+    "buildsystem": "simple",
+    "build-commands": [
+        "pip3 install --exists-action=i --no-index  --no-deps --prefix=${FLATPAK_DEST} *.tar.gz *.whl"
+    ],
+    "sources": [
+        {
+            "type": "file",
+            "url": "https://download.gnome.org/sources/pygobject/2.28/pygobject-2.28.7.tar.xz",
+            "sha256": "bb9d25a3442ca7511385a7c01b057492095c263784ef31231ffe589d83a96a5a"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/3f/e7/4edb582d1ffd5ac3c84188deea32e960b5c8c0fe1da56ce70224f85ce542/dbus-python-1.2.8.tar.gz",
+            "sha256": "abf12bbb765e300bf8e2a1b2f32f85949eab06998dbda127952c31cb63957b6f"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/c4/b8/3512f0e93e0db23a71d82485ba256071ebef99b227351f0f5540f744af41/psutil-5.7.0.tar.gz",
+            "sha256": "685ec16ca14d079455892f25bd124df26ff9137664af445563c1bd36629b5e0e"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/d1/29/605c2cc68a9992d18dada28206eeada56ea4bd07a239669da41674648b6f/ptyprocess-0.6.0-py2.py3-none-any.whl",
+            "sha256": "d7cc528d76e76342423ca640335bd3633420dc1366f258cb31d05e865ef5ca1f"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/39/7b/88dbb785881c28a102619d46423cb853b46dbccc70d3ac362d99773a78ce/pexpect-4.8.0-py2.py3-none-any.whl",
+            "sha256": "0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/e1/3e/a21e7268fa39756cdbd6d86af78ff1c0a92b84d6dbfadff431e9e3b9e1d3/peewee-3.13.3.tar.gz",
+            "sha256": "1269a9736865512bd4056298003aab190957afe07d2616cf22eaf56cb6398369"
+        },
+        {
+            "type": "file",
+            "url": "https://pypi.python.org/packages/e4/b0/286e8a936158e5cc5791d5fa3bc4b1d5a7e1ff4e5b3f3766b63d8e97708a/requests-2.14.2-py2.py3-none-any.whl#md5=a1b2f02e7ba45dff7c76f621cde042c4",
+            "sha256": "3b39cde35be51762885631cf586f4dc2284951b44d479a4454020758d767cc2f"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/11/4b/0a002eea91be6048a2b5d53c5f1b4dafd57ba2e36eea961d05086d7c28ce/fuzzywuzzy-0.18.0.tar.gz",
+            "sha256": "45016e92264780e58972dca1b3d939ac864b78437422beecebb3095f8efd00e8"
+        },
+        {
+            "type": "file",
+            "url": "https://pypi.python.org/packages/42/a9/d1785c85ebf9b7dfacd08938dd028209c34a0ea3b1bcdb895208bd40a67d/python-Levenshtein-0.12.0.tar.gz",
+            "sha256": "033a11de5e3d19ea25c9302d11224e1a1898fe5abd23c61c7c360c25195e3eb1"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/41/17/c62faccbfbd163c7f57f3844689e3a78bae1f403648a6afb1d0866d87fbb/python_dateutil-2.8.0-py2.py3-none-any.whl",
+            "sha256": "7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/7d/29/174d70f303016c58bd790c6c86e6e86a9d18239fac314d55a9b7be501943/lxml-4.3.3.tar.gz",
+            "sha256": "4a03dd682f8e35a10234904e0b9508d705ff98cf962c5851ed052e9340df3d90"
+        }
+    ]
+}

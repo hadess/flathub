@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>com.bambulab.BambuStudio</id>
+    <launchable type="desktop-id">com.bambulab.BambuStudio.desktop</launchable>
+    <provides>
+        <id>com.bambulab.BambuStudio.desktop</id>
+    </provides>
+    <name>Bambu Studio</name>
+    <icon type="remote" width="416" height="416">https://github.com/flathub/com.flashforge.FlashPrint/raw/master/com.flashforge.FlashPrint.svg</icon>
+    <summary>Get perfect 3D prints!</summary>
+    <developer_name>Bambu Lab</developer_name>
+    <url type="homepage">https://bambulab.com/en/download/studio</url>
+    <url type="help">https://wiki.bambulab.com/en/software</url>
+    <url type="bugtracker">https://github.com/bambulab/BambuStudio/issues/</url>
+    <metadata_license>0BSD</metadata_license>
+    <project_license>AGPL-3.0-only</project_license>
+    <content_rating type="oars-1.1" />
+    <requires>
+        <display_length compare="gt">768</display_length>
+    </requires>
+    <recommends>
+        <control>keyboard</control>
+        <control>pointing</control>
+    </recommends>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://user-images.githubusercontent.com/590307/132481769-1588494a-68f8-49d2-b109-a7ff29d70b45.png</image>
+            <caption>CLEAR AND SIMPLE UI</caption>
+        </screenshot>
+    </screenshots>
+    <description>
+      <p>
+        Bambu Studio is a cutting-edge, feature-rich slicing software. It contains project-based workflows, systematically
+        optimized slicing algorithms, and an easy-to-use graphical interface, bringing users an incredibly smooth
+        printing experience.
+      </p>
+    </description>
+    <releases>
+        <release version="1.8.0 Public Beta 2" date="2023-11-23">
+            <url>https://github.com/bambulab/BambuStudio/releases</url>
+        </release>
+    </releases>
+</component>

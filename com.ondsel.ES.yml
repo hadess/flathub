@@ -1,0 +1,53 @@
+app-id: com.ondsel.ES
+runtime: org.kde.Platform
+runtime-version: '5.15-23.08'
+sdk: org.kde.Sdk
+command: freecad
+separate-locales: false
+rename-icon: Ondsel
+finish-args:
+  - --share=ipc
+  #- --socket=wayland
+  #- --socket=fallback-x11
+  - --socket=x11
+  - --share=network
+  - --device=all
+  - --filesystem=home
+  - --filesystem=xdg-run/gvfs # make GnomeVFS accessible
+  - --filesystem=/run/media
+  - --filesystem=/media
+
+modules:
+
+  - name: ondsel
+    buildsystem: simple
+    build-commands:
+      - chmod +x ondsel.appimage
+      - ./ondsel.appimage --appimage-extract
+      # Remove empty directories
+      - rmdir squashfs-root/usr/*/*/* || :
+      - rmdir squashfs-root/usr/*/* || :
+      - rmdir squashfs-root/usr/* || :
+      # Remove left-over SDK
+      - rm -rf squashfs-root/usr/x86_64-conda_cos6-linux-gnu squashfs-root/usr/x86_64-conda-linux-gnu squashfs-root/usr/compiler_compat
+      - mv squashfs-root/usr/* $FLATPAK_DEST/
+      # - install -Dm755 squashfs-root/usr/bin/freecad $FLATPAK_DEST/bin/freecad
+      - install -Dm644 squashfs-root/Ondsel.svg $FLATPAK_DEST/share/icons/hicolor/scalable/apps/Ondsel.svg
+      - install -Dm644 squashfs-root/com.ondsel.ES.desktop $FLATPAK_DEST/share/applications/$FLATPAK_ID.desktop
+      - desktop-file-edit --set-key=Exec --set-value="freecad %U" /app/share/applications/${FLATPAK_ID}.desktop
+        # - install -Dm644 $FLATPAK_ID.metainfo.xml -t $FLATPAK_DEST/share/metainfo
+
+    sources:
+      - type: file
+        url: https://github.com/Ondsel-Development/FreeCAD/releases/download/2024.1.0/Ondsel_ES_2024.1.0.35694-Linux-x86_64.AppImage
+        sha256: 50d96d7747c5d8cbd56e600d7046aa80406cadeaf1aa71821d95cc2c6a7a38ac
+        dest-filename: ondsel.appimage
+        x-checker-data:
+            type: json
+            url: https://api.github.com/repos/bambulab/Ondsel/releases/latest
+            version-query: .tag_name
+            url-query: .assets[] | select(.name=="Ondsel_linux_fedora") | .browser_download_url
+
+              # - type: file
+              #        path: $FLATPAK_ID.metainfo.xml
+

@@ -29,14 +29,17 @@ modules:
       - type: git
         url: https://gitlab.com/patchpal-ai/patchpal-gui.git
         commit: 264c7964b55d718124efa53d918edfde9d859b9d
+      - type: file
+        path: patchpal-external.sh
+      # See update-deps.sh
+      - generated-sources.json
       # https://github.com/pascalkuthe/imara-diff/pull/26
       - type: patch
         path: 0001-Use-forked-imara-diff.patch
-      # See update-deps.sh
-      - generated-sources.json
       - imara-diff-lock.json
     build-commands:
       - cargo --offline --verbose generate-lockfile
       - cargo --offline fetch --verbose --manifest-path Cargo.toml
       - cargo --offline build
       - install -Dm755 -t /app/bin target/debug/patchpal target/debug/extractor
+      - install -Dm755 -t /app/scripts patchpal-external.sh

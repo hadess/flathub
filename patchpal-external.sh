@@ -9,4 +9,4 @@ else
 	COMMIT="$1"
 fi
 
-flatpak run --filesystem="$REPO" com.redhat.patchpal.gui -g "$REPO" "$COMMIT"
+exec flatpak run --filesystem="$REPO" com.redhat.patchpal.gui -g "$REPO" "$COMMIT"

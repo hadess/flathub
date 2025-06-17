@@ -41,5 +41,6 @@ modules:
       - cargo --offline --verbose generate-lockfile
       - cargo --offline fetch --verbose --manifest-path Cargo.toml
       - cargo --offline build
-      - install -Dm755 -t /app/bin target/debug/patchpal target/debug/extractor
+      - mv target/debug/patchpal target/debug/patchpal-bin
+      - install -Dm755 -t /app/bin target/debug/patchpal-bin target/debug/extractor
       - install -Dm755 -t /app/scripts patchpal-external.sh

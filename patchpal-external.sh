@@ -2,11 +2,14 @@
 
 # Find the path to the git repo
 REPO=$(pwd)
+# FIXME --git
 if [ $# = 3 ] && [ "$1" -eq '-g' ] ; then
 	REPO="$2"
 	COMMIT="$3"
 else
 	COMMIT="$1"
 fi
+
+# FIXME anything else, pass through
 
 exec flatpak run --filesystem="$REPO" com.redhat.patchpal.gui -g "$REPO" "$COMMIT"

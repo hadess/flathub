@@ -1,4 +1,4 @@
-app-id: com.redhat.patchpal.gui
+app-id: com.redhat.patchpal-gui
 runtime: org.gnome.Platform
 runtime-version: '48'
 sdk: org.gnome.Sdk

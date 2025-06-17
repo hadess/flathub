@@ -12,4 +12,4 @@ fi
 
 # FIXME anything else, pass through
 
-exec flatpak run --filesystem="$REPO" com.redhat.patchpal.gui -g "$REPO" "$COMMIT"
+exec flatpak run --filesystem="$REPO" com.redhat.patchpal-gui -g "$REPO" "$COMMIT"

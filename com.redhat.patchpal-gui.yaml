@@ -5,7 +5,7 @@ sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
   - org.freedesktop.Sdk.Extension.llvm20
-command: patchpal
+command: patchpal-internal.sh
 separate-locales: false
 finish-args:
   - --socket=wayland
@@ -47,6 +47,8 @@ modules:
         commit: 264c7964b55d718124efa53d918edfde9d859b9d
       - type: file
         path: patchpal-external.sh
+      - type: file
+        path: patchpal-internal.sh
       # See update-deps.sh
       - generated-sources.json
       # https://github.com/pascalkuthe/imara-diff/pull/26
@@ -58,5 +60,5 @@ modules:
       - cargo --offline fetch --verbose --manifest-path Cargo.toml
       - cargo --offline build
       - mv target/debug/patchpal target/debug/patchpal-bin
-      - install -Dm755 -t /app/bin target/debug/patchpal-bin target/debug/extractor
+      - install -Dm755 -t /app/bin target/debug/patchpal-bin patchpal-internal.sh target/debug/extractor
       - install -Dm755 -t /app/scripts patchpal-external.sh

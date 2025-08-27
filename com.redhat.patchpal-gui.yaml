@@ -44,7 +44,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/patchpal-ai/patchpal-gui.git
-        commit: 264c7964b55d718124efa53d918edfde9d859b9d
+        commit: 3b273cd43d671fc1f42d810f90c295fa42557a57
       - type: file
         path: patchpal-external.sh
       - type: file

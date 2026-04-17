@@ -80,6 +80,7 @@ modules:
       - type: git
         url: https://github.com/OpenXcom/OpenXcom.git
         commit: 1edb0a5a2d699f823cac44f0446e85419945d8cc
+      # https://github.com/OpenXcom/OpenXcom/pull/1493
       - type: patch
         path: 0001-Make-SVG-icon-square-as-expected-by-Flatpak.patch
       - type: script

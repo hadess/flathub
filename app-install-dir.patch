@@ -1,0 +1,37 @@
+From 55989becb3dc1aac535ecd88e204fcdd07628eba Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Sat, 18 Apr 2026 14:17:15 +0200
+Subject: [PATCH] XXX Install in /app
+
+---
+ UnifiedFloppyTool.pro | 2 +-
+ src/gui/uft_gui.pro   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/UnifiedFloppyTool.pro b/UnifiedFloppyTool.pro
+index f908546a3229..61249ae0916f 100644
+--- a/UnifiedFloppyTool.pro
++++ b/UnifiedFloppyTool.pro
+@@ -437,7 +437,7 @@ HEADERS += \
+ 
+ # Default deployment
+ qnx: target.path = /tmp/$${TARGET}/bin
+-else: unix:!android: target.path = /opt/$${TARGET}/bin
++else: unix:!android: target.path = /app/bin
+ !isEmpty(target.path): INSTALLS += target
+ 
+ # ═══════════════════════════════════════════════════════════════════════════════
+diff --git a/src/gui/uft_gui.pro b/src/gui/uft_gui.pro
+index 6531db969c35..200a2978f2ee 100644
+--- a/src/gui/uft_gui.pro
++++ b/src/gui/uft_gui.pro
+@@ -92,5 +92,5 @@ QMAKE_CXXFLAGS_RELEASE += -O2
+ 
+ # Default rules for deployment
+ qnx: target.path = /tmp/$${TARGET}/bin
+-else: unix:!android: target.path = /opt/$${TARGET}/bin
++else: unix:!android: target.path = /app/bin
+ !isEmpty(target.path): INSTALLS += target
+-- 
+2.53.0
+

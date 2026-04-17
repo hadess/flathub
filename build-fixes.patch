@@ -1,0 +1,47 @@
+From 79d5b9d95d5d1aed5959c5d306ad3de44f6316ed Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Sat, 18 Apr 2026 14:09:22 +0200
+Subject: [PATCH] Fix build under GCC 15
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+GCC 15 defaults to the GNU23 C standard, which means that function
+declarations without parameters don't work anymore.
+
+src/formats/amiga_ext/snprintf.c:49:8: error: too many arguments to function ‘dopr’; expected 0, have 3
+   49 |        dopr( str, fmt, args );
+      |        ^~~~  ~~~
+src/formats/amiga_ext/snprintf.c:29:13: note: declared here
+   29 | static void dopr();
+      |             ^~~~
+
+See https://gcc.gnu.org/gcc-15/porting_to.html#c23
+---
+ src/formats/amiga_ext/snprintf.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/formats/amiga_ext/snprintf.c b/src/formats/amiga_ext/snprintf.c
+index 29d5658433c9..f06a5cba2954 100644
+--- a/src/formats/amiga_ext/snprintf.c
++++ b/src/formats/amiga_ext/snprintf.c
+@@ -26,7 +26,6 @@
+  * causing nast effects.
+  **************************************************************/
+ 
+-static void dopr();
+ static char *end;
+ 
+ #include <sys/types.h>
+@@ -38,6 +37,8 @@ static char *end;
+ 
+ #include "snprintf.h"
+ 
++static void dopr( char *buffer, char *format, va_list args );
++
+ int vsnprintf(str, count, fmt, args)
+        char *str;
+        size_t count;
+-- 
+2.53.0
+

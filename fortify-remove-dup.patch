@@ -1,0 +1,15 @@
+diff --git a/UnifiedFloppyTool.pro b/UnifiedFloppyTool.pro
+index f32d31db2b39..f908546a3229 100644
+--- a/UnifiedFloppyTool.pro
++++ b/UnifiedFloppyTool.pro
+@@ -90,8 +90,8 @@ msvc {
+ 
+ # GCC/Clang hardening (Linux, macOS, MinGW)
+ !msvc {
+-    QMAKE_CFLAGS_RELEASE += -fstack-protector-strong -D_FORTIFY_SOURCE=2
+-    QMAKE_CXXFLAGS_RELEASE += -fstack-protector-strong -D_FORTIFY_SOURCE=2
++    QMAKE_CFLAGS_RELEASE += -fstack-protector-strong
++    QMAKE_CXXFLAGS_RELEASE += -fstack-protector-strong
+ }
+ 
+ # macOS specific

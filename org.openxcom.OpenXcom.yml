@@ -1,0 +1,91 @@
+app-id: org.openxcom.OpenXcom
+runtime: org.freedesktop.Platform
+sdk: org.freedesktop.Sdk
+runtime-version: '25.08'
+command: openxcom.sh
+rename-icon: openxcom
+
+finish-args:
+  - --socket=x11
+  - --device=dri
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+
+cleanup:
+  - /include
+  - "*.a"
+  - "*.la"
+  - /lib/pkgconfig
+
+modules:
+
+  - shared-modules/SDL/SDL-1.2.15.json
+  - shared-modules/SDL/SDL_mixer-1.2.12.json
+  - shared-modules/SDL/SDL_mixer-1.2.12.json
+  - shared-modules/SDL/SDL_image-1.2.12.json
+
+  - name: SDL_gfx
+    config-opts:
+      - --disable-static
+      - --disable-mmx
+    build-options:
+      arch:
+        x86_64:
+          config-opts:
+            - --enable-mmx
+    rm-configure: true
+    sources:
+      - type: archive
+        url: https://downloads.sourceforge.net/project/sdlgfx/SDL_gfx-2.0.25.tar.gz
+        sha256: 556eedc06b6cf29eb495b6d27f2dcc51bf909ad82389ba2fa7bdc4dec89059c0
+      - type: script
+        dest-filename: autogen.sh
+        commands:
+          - autoreconf -vfi
+
+  - name: yaml-cpp
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_SHARED_LIBS=ON
+      - -DYAML_BUILD_SHARED_LIBS=ON
+    sources:
+      - type: archive
+        url: https://github.com/jbeder/yaml-cpp/archive/yaml-cpp-0.9.0.tar.gz
+        sha256: 25cb043240f828a8c51beb830569634bc7ac603978e0f69d6b63558dadefd49a
+
+  - name: glu
+    buildsystem: meson
+    sources:
+      - type: archive
+        url: https://ftp.osuosl.org/pub/blfs/conglomeration/glu/glu-9.0.3.tar.xz
+        sha256: bd43fe12f374b1192eb15fe20e45ff456b9bc26ab57f0eee919f96ca0f8a330f
+    cleanup:
+      - /include
+      - /lib/pkgconfig
+
+  - name: openxcom
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+      - type: git
+        url: https://github.com/OpenXcom/OpenXcom.git
+        commit: 1edb0a5a2d699f823cac44f0446e85419945d8cc
+      - type: patch
+        path: 0001-Make-SVG-icon-square-as-expected-by-Flatpak.patch
+      - type: script
+        commands:
+          - ls ~/.var/app/org.openxcom.OpenXcom/data/UFO || zenity --error --text
+            "Game data /base/ must be added to:\n~/.var/app/org.openxcom.OpenXcom/data/UFO"
+            --ok-label "Close" --width=400
+          - openxcom -data "$XDG_DATA_HOME" -user "$XDG_STATE_HOME" -config "XDG_CONFIG_HOME"
+        dest-filename: openxcom.sh
+      - type: shell
+        commands:
+          - install -Dm 744 openxcom.sh -t /app/bin/
+          - install -Dm 644 res/linux/icons/openxcom.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+          - install -Dm 644 res/linux/openxcom.desktop /app/share/applications/${FLATPAK_ID}.desktop
+          - desktop-file-edit --set-key=Exec --set-value="openxcom.sh" /app/share/applications/${FLATPAK_ID}.desktop
+          # FIXME .metainfo file

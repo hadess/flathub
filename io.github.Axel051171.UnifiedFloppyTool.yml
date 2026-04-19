@@ -38,20 +38,11 @@ modules:
       - CONFIG+=release
     post-install:
       - install -Dm644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/UnifiedFloppyTool.svg
-      - install -Dm644 packaging/linux/UnifiedFloppyTool.desktop /app/share/applications/${FLATPAK_ID}.desktop
+      - install -Dm644 -t /app/share/metainfo/ packaging/flatpak/${FLATPAK_ID}.metainfo.xml
+      - install -Dm644 -t /app/share/applications/ packaging/flatpak/${FLATPAK_ID}.desktop
     sources:
       - type: git
         url: https://github.com/Axel051171/UnifiedFloppyTool.git
-        tag: v4.1.3
-        commit: cf565660456eba5214a73dd197e423bb8aaee23c
+        commit: d9e2be47c4051b843fc588308e774c87238c118c
       - type: patch
         path: app-install-dir.patch
-      # https://github.com/Axel051171/UnifiedFloppyTool/issues/16
-      - type: patch
-        path: fortify-remove-dup.patch
-      # https://github.com/Axel051171/UnifiedFloppyTool/pull/18
-      - type: patch
-        path: build-fixes.patch
-      # https://github.com/Axel051171/UnifiedFloppyTool/issues/17
-      - type: patch
-        path: no-debug.patch

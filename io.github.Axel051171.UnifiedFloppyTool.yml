@@ -20,6 +20,17 @@ cleanup:
 
 modules:
 
+  - python3-requirements.json
+  - name: greaseweazle
+    buildsystem: simple
+    build-commands:
+      - python3 -m pip install --prefix=/app --no-build-isolation .
+    sources:
+      - type: git
+        url: https://github.com/keirf/greaseweazle.git
+        tag: v1.23
+        commit: a0ae343d7e2603b9f3fdc0149ef8e89de5399f58
+
   - name: uft
     buildsystem: qmake
     config-opts:
